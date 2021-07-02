@@ -1,0 +1,584 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled0.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyPm27KSMO/SSWaulfxv3ndY"
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "bA4Zj6hvlphm",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "d80bd6e0-dd8a-4d70-c8de-66fcc0ff59c2"
+      },
+      "source": [
+        "\n",
+        "!ls"
+      ],
+      "execution_count": 1,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "sample_data\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "CI6um2rMf6bd",
+        "outputId": "18ee2682-1e08-4356-9df1-e7d966932504"
+      },
+      "source": [
+        "!ls -l"
+      ],
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "total 4\n",
+            "drwxr-xr-x 1 root root 4096 Jun 15 13:37 sample_data\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "PNZJLukef_ao",
+        "outputId": "5b56b033-681e-4c07-b881-832e3c35d2e4"
+      },
+      "source": [
+        "!pwd"
+      ],
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "/content\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Wc3NUy6-gDs9",
+        "outputId": "01b475ae-0d2a-47c1-e000-ca6593b42c7c"
+      },
+      "source": [
+        "!ls -l ./sample_data"
+      ],
+      "execution_count": 5,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "total 55504\n",
+            "-rwxr-xr-x 1 root root     1697 Jan  1  2000 anscombe.json\n",
+            "-rw-r--r-- 1 root root   301141 Jun 15 13:37 california_housing_test.csv\n",
+            "-rw-r--r-- 1 root root  1706430 Jun 15 13:37 california_housing_train.csv\n",
+            "-rw-r--r-- 1 root root 18289443 Jun 15 13:37 mnist_test.csv\n",
+            "-rw-r--r-- 1 root root 36523880 Jun 15 13:37 mnist_train_small.csv\n",
+            "-rwxr-xr-x 1 root root      930 Jan  1  2000 README.md\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "qT8-85FCgykf",
+        "outputId": "bf81c68a-5923-4980-f27c-86da8b0d49f5"
+      },
+      "source": [
+        "!ls -l ./Wholesale_customers_data.csv"
+      ],
+      "execution_count": 7,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "-rw-r--r-- 1 root root 15021 Jul  2 04:46 ./Wholesale_customers_data.csv\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "mFxkfvfwiwuN",
+        "outputId": "879905f0-995d-4e82-80dd-2d7132142369"
+      },
+      "source": [
+        "import pandas as pd\n",
+        "df = pd.read_csv('./Wholesale_customers_data.csv')\n",
+        "df.info()"
+      ],
+      "execution_count": 10,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "<class 'pandas.core.frame.DataFrame'>\n",
+            "RangeIndex: 440 entries, 0 to 439\n",
+            "Data columns (total 8 columns):\n",
+            " #   Column            Non-Null Count  Dtype\n",
+            "---  ------            --------------  -----\n",
+            " 0   Channel           440 non-null    int64\n",
+            " 1   Region            440 non-null    int64\n",
+            " 2   Fresh             440 non-null    int64\n",
+            " 3   Milk              440 non-null    int64\n",
+            " 4   Grocery           440 non-null    int64\n",
+            " 5   Frozen            440 non-null    int64\n",
+            " 6   Detergents_Paper  440 non-null    int64\n",
+            " 7   Delicassen        440 non-null    int64\n",
+            "dtypes: int64(8)\n",
+            "memory usage: 27.6 KB\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 142
+        },
+        "id": "-XUvzHUFjPVZ",
+        "outputId": "bf9a99f2-3577-4bce-98b7-32876fff9ec7"
+      },
+      "source": [
+        "mydict = [{'a': 1, 'b': 2, 'c': 3, 'd': 4},\n",
+        "          {'a': 100, 'b': 200, 'c': 300, 'd': 400},\n",
+        "          {'a': 1000, 'b': 2000, 'c': 3000, 'd': 4000 }]\n",
+        "df2 = pd.DataFrame(mydict)\n",
+        "df2"
+      ],
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>a</th>\n",
+              "      <th>b</th>\n",
+              "      <th>c</th>\n",
+              "      <th>d</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>0</th>\n",
+              "      <td>1</td>\n",
+              "      <td>2</td>\n",
+              "      <td>3</td>\n",
+              "      <td>4</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>100</td>\n",
+              "      <td>200</td>\n",
+              "      <td>300</td>\n",
+              "      <td>400</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>1000</td>\n",
+              "      <td>2000</td>\n",
+              "      <td>3000</td>\n",
+              "      <td>4000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "      a     b     c     d\n",
+              "0     1     2     3     4\n",
+              "1   100   200   300   400\n",
+              "2  1000  2000  3000  4000"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 11
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "69WLjy4ynNQ1",
+        "outputId": "fa7f6ea3-6e94-4b26-e3a0-e93008fbd348"
+      },
+      "source": [
+        "df2.iloc[0]"
+      ],
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "a    1\n",
+              "b    2\n",
+              "c    3\n",
+              "d    4\n",
+              "Name: 0, dtype: int64"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 12
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "lafyxjtgnQGx",
+        "outputId": "05a2afa1-4c2a-454f-d334-7e33ced95d2c"
+      },
+      "source": [
+        "df2.iloc[1,2]"
+      ],
+      "execution_count": 15,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "300"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 15
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 111
+        },
+        "id": "VS2Du6bbnaXH",
+        "outputId": "5a6254ab-16b7-4295-c820-568ed43de007"
+      },
+      "source": [
+        "df2.iloc[1:3,2:5] # range(1, 6)"
+      ],
+      "execution_count": 17,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>c</th>\n",
+              "      <th>d</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>1</th>\n",
+              "      <td>300</td>\n",
+              "      <td>400</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>2</th>\n",
+              "      <td>3000</td>\n",
+              "      <td>4000</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "      c     d\n",
+              "1   300   400\n",
+              "2  3000  4000"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 17
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 142
+        },
+        "id": "MG9gRZ6so22b",
+        "outputId": "85c04d6a-1143-4df4-8c8f-c5fa9baf3d36"
+      },
+      "source": [
+        "df3 = pd.DataFrame([[1, 2], [4, 5], [7, 8]],\n",
+        "     index=['cobra', 'viper', 'sidewinder'],\n",
+        "     columns=['max_speed', 'shield'])\n",
+        "df3"
+      ],
+      "execution_count": 18,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>max_speed</th>\n",
+              "      <th>shield</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>cobra</th>\n",
+              "      <td>1</td>\n",
+              "      <td>2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>viper</th>\n",
+              "      <td>4</td>\n",
+              "      <td>5</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>sidewinder</th>\n",
+              "      <td>7</td>\n",
+              "      <td>8</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "            max_speed  shield\n",
+              "cobra               1       2\n",
+              "viper               4       5\n",
+              "sidewinder          7       8"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 18
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "Odx8wwqXqdWB",
+        "outputId": "e65d422a-14bd-41bb-a999-bf808d60ae07"
+      },
+      "source": [
+        "df3.loc['cobra', 'shield']"
+      ],
+      "execution_count": 20,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "2"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 20
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 111
+        },
+        "id": "YXeT0PgnrCHU",
+        "outputId": "97424c34-785d-4610-dd91-1f91f31e905d"
+      },
+      "source": [
+        "df3.loc['cobra':'viper','max_speed':'shield']"
+      ],
+      "execution_count": 21,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/html": [
+              "<div>\n",
+              "<style scoped>\n",
+              "    .dataframe tbody tr th:only-of-type {\n",
+              "        vertical-align: middle;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe tbody tr th {\n",
+              "        vertical-align: top;\n",
+              "    }\n",
+              "\n",
+              "    .dataframe thead th {\n",
+              "        text-align: right;\n",
+              "    }\n",
+              "</style>\n",
+              "<table border=\"1\" class=\"dataframe\">\n",
+              "  <thead>\n",
+              "    <tr style=\"text-align: right;\">\n",
+              "      <th></th>\n",
+              "      <th>max_speed</th>\n",
+              "      <th>shield</th>\n",
+              "    </tr>\n",
+              "  </thead>\n",
+              "  <tbody>\n",
+              "    <tr>\n",
+              "      <th>cobra</th>\n",
+              "      <td>1</td>\n",
+              "      <td>2</td>\n",
+              "    </tr>\n",
+              "    <tr>\n",
+              "      <th>viper</th>\n",
+              "      <td>4</td>\n",
+              "      <td>5</td>\n",
+              "    </tr>\n",
+              "  </tbody>\n",
+              "</table>\n",
+              "</div>"
+            ],
+            "text/plain": [
+              "       max_speed  shield\n",
+              "cobra          1       2\n",
+              "viper          4       5"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          },
+          "execution_count": 21
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vie7UUySrYBb"
+      },
+      "source": [
+        ""
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
